@@ -1,0 +1,13 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: podcheckpointeroperators.pod.checkpointer.operator.openshift.io
+spec:
+  group: pod.checkpointer.operator.openshift.io
+  names:
+    kind: PodCheckpointerOperator
+    listKind: PodCheckpointerOperatorList
+    plural: podcheckpointeroperators
+    singular: podcheckpointeroperator
+  scope: Namespaced
+  version: v1alpha1

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-checkpointer-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: pod-checkpointer-operator
+  template:
+    metadata:
+      labels:
+        name: pod-checkpointer-operator
+    spec:
+      serviceAccountName: pod-checkpointer-operator
+      containers:
+        - name: pod-checkpointer-operator
+          image: REPLACE_IMAGE
+          ports:
+          - containerPort: 60000
+            name: metrics
+          command:
+          - pod-checkpointer-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: OPERATOR_NAME
+              value: "pod-checkpointer-operator"

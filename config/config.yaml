@@ -1,0 +1,3 @@
+apiVersion: pod.checkpointer.operator.openshift.io/v1alpha1
+kind: PodCheckpointerOperator
+projectName: pod-checkpointer-operator
