@@ -191,8 +191,8 @@ func newCheckpointerDaemonSet(cr *v1alpha1.PodCheckpointerOperator) *appsv1.Daem
 
 func RegisterOperatorMetrics() (*Metrics, error) {
 	operatorErrors := prometheus.NewCounter(prometheus.CounterOpts{
-		Name: "memcached_operator_reconcile_errors_total",
-		Help: "Number of errors that occurred while reconciling the memcached deployment",
+		Name: "pod_checkpointer_operator_reconcile_errors_total",
+		Help: "Number of errors that occurred while reconciling the pod checkpointer operator",
 	})
 	err := prometheus.Register(operatorErrors)
 	if err != nil {
