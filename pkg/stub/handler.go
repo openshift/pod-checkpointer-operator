@@ -90,6 +90,7 @@ func newCheckpointerDaemonSet(cr *v1alpha1.PodCheckpointerOperator) *appsv1.Daem
 					},
 				},
 				Spec: corev1.PodSpec{
+					HostNetwork: true,
 					Volumes: []corev1.Volume{
 						corev1.Volume{
 							Name: "kubeconfig",
