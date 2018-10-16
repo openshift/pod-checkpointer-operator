@@ -27,10 +27,7 @@ type Metrics struct {
 }
 
 type Handler struct {
-	// Metrics example
 	metrics *Metrics
-
-	// Fill me
 }
 
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
@@ -38,7 +35,7 @@ func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 	case *v1alpha1.PodCheckpointerOperator:
 		err := sdk.Create(newCheckpointerDaemonSet(o))
 		if err != nil && !errors.IsAlreadyExists(err) {
-			logrus.Errorf("failed to create busybox pod : %v", err)
+			logrus.Errorf("failed to create checkpointer pod : %v", err)
 			// increment error metric
 			h.metrics.operatorErrors.Inc()
 			return err
