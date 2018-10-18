@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 
+	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -14,6 +15,7 @@ import (
 const (
 	PCOClusterRole    = "assets/pod-checkpointer-operator/cluster-role.yaml"
 	PCOCustomResource = "assets/pod-checkpointer-operator/custom-resource.yaml"
+	PCODaemonSet      = "assets/pod-checkpointer-operator/daemonset.yaml"
 	PCONamespace      = "assets/pod-checkpointer-operator/namespace.yaml"
 	PCOOperator       = "assets/pod-checkpointer-operator/operator.yaml"
 	PCORbac           = "assets/pod-checkpointer-operator/rbac.yaml"
@@ -29,6 +31,23 @@ type Factory struct{}
 
 func NewFactory() *Factory {
 	return &Factory{}
+}
+
+func (*Factory) DefaultDaemonSet(defaultImage string) (*appsv1.DaemonSet, error) {
+	ds, err := NewDaemonSet(MustAssetReader(PCODaemonSet))
+	if err != nil {
+		return nil, err
+	}
+	ds.Spec.Template.Spec.Containers[0].Image = defaultImage
+	return ds, nil
+}
+
+func NewDaemonSet(manifest io.Reader) (*appsv1.DaemonSet, error) {
+	ds := appsv1.DaemonSet{}
+	if err := yaml.NewYAMLOrJSONDecoder(manifest, 100).Decode(&ds); err != nil {
+		return nil, err
+	}
+	return &ds, nil
 }
 
 func (*Factory) DefaultPCOClusterRole() (*rbacv1.ClusterRole, error) {
