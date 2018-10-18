@@ -1,4 +1,5 @@
 BINDATA=pkg/manifests/bindata.go
+IMAGE_REPOSITORY_NAME ?= openshift
 
 .PHONY: all
 all: generate build
@@ -10,3 +11,7 @@ generate:
 .PHONY: build
 build:
 	GOOS=$(GOOS) go build -o pod-checkpointer-operator ./cmd/pod-checkpointer-operator
+
+.PHONY: images
+images:
+	imagebuilder -f Dockerfile -t $(IMAGE_REPOSITORY_NAME)/origin-pod-checkpointer-operator .
