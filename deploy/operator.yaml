@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pod-checkpointer-operator
-  namespace: kube-system
+  namespace: openshift-pod-checkpointer
 spec:
   replicas: 1
   selector:
     matchLabels:
       name: pod-checkpointer-operator
-      namespace: kube-system
+      namespace: openshift-pod-checkpointer
   template:
     metadata:
       labels:
         name: pod-checkpointer-operator
-        namespace: kube-system
+        namespace: openshift-pod-checkpointer
     spec:
       serviceAccountName: pod-checkpointer-operator
       containers:

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/openshift/pod-checkpointer-operator/pkg/apis/pod/v1alpha1"
+	"github.com/openshift/pod-checkpointer-operator/pkg/manifests"
 
 	"github.com/operator-framework/operator-sdk/pkg/sdk"
 	"github.com/prometheus/client_golang/prometheus"
@@ -16,9 +17,15 @@ import (
 	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
-func NewHandler(m *Metrics) sdk.Handler {
+const (
+	defaultNamespace = "openshift-pod-checkpointer"
+	defaultImage     = "quay.io/coreos/pod-checkpointer:9dc83e1ab3bc36ca25c9f7c18ddef1b91d4a0558"
+)
+
+func NewHandler(m *Metrics, factory *manifests.Factory) *Handler {
 	return &Handler{
-		metrics: m,
+		metrics:          m,
+		manifestsFactory: factory,
 	}
 }
 
@@ -27,7 +34,35 @@ type Metrics struct {
 }
 
 type Handler struct {
-	metrics *Metrics
+	metrics          *Metrics
+	manifestsFactory *manifests.Factory
+}
+
+func (h *Handler) EnsureObjects() error {
+	return nil
+	/*
+		cr, err := h.manifestsFactory.New
+		if err != nil {
+			return fmt.Errorf("couldn't build router cluster role: %v", err)
+		}
+		err = sdk.Create(cr)
+		if err == nil {
+			logrus.Infof("created router cluster role %q", cr.Name)
+		} else if !errors.IsAlreadyExists(err) {
+			return fmt.Errorf("couldn't create router cluster role: %v", err)
+		}
+
+		ns, err := h.manifestsFactory.RouterNamespace()
+		if err != nil {
+			return fmt.Errorf("couldn't build router namespace: %v", err)
+		}
+		err = sdk.Create(ns)
+		if err == nil {
+			logrus.Infof("created router namespace %q", ns.Name)
+		} else if !errors.IsAlreadyExists(err) {
+			return fmt.Errorf("couldn't create router namespace %q: %v", ns.Name, err)
+		}
+	*/
 }
 
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
@@ -36,7 +71,6 @@ func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 		err := sdk.Create(newCheckpointerDaemonSet(o))
 		if err != nil && !errors.IsAlreadyExists(err) {
 			logrus.Errorf("failed to create checkpointer pod : %v", err)
-			// increment error metric
 			h.metrics.operatorErrors.Inc()
 			return err
 		}
@@ -53,7 +87,7 @@ func newCheckpointerDaemonSet(cr *v1alpha1.PodCheckpointerOperator) *appsv1.Daem
 		},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      "pod-checkpointer",
-			Namespace: "kube-system",
+			Namespace: defaultNamespace,
 			OwnerReferences: []metav1.OwnerReference{
 				*metav1.NewControllerRef(cr, schema.GroupVersionKind{
 					Group:   v1alpha1.SchemeGroupVersion.Group,
@@ -122,7 +156,7 @@ func newCheckpointerDaemonSet(cr *v1alpha1.PodCheckpointerOperator) *appsv1.Daem
 					Containers: []corev1.Container{
 						{
 							Name:  "pod-checkpointer",
-							Image: "quay.io/coreos/pod-checkpointer:9dc83e1ab3bc36ca25c9f7c18ddef1b91d4a0558",
+							Image: defaultImage,
 							VolumeMounts: []corev1.VolumeMount{
 								corev1.VolumeMount{
 									Name:      "kubeconfig",
