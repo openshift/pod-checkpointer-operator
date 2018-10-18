@@ -19,7 +19,7 @@ import (
 
 const (
 	defaultNamespace = "openshift-pod-checkpointer"
-	defaultImage     = "quay.io/coreos/pod-checkpointer:9dc83e1ab3bc36ca25c9f7c18ddef1b91d4a0558"
+	defaultImage     = "quay.io/coreos/pod-checkpointer:018007e77ccd61e8e59b7e15d7fc5e318a5a2682"
 )
 
 func NewHandler(m *Metrics, factory *manifests.Factory) *Handler {
