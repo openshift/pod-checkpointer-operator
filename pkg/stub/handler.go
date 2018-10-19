@@ -61,7 +61,7 @@ func (h *Handler) EnsureObjects() error {
 
 func (h *Handler) Handle(ctx context.Context, event sdk.Event) error {
 	switch event.Object.(type) {
-	case *v1alpha1.PodCheckpointerOperator:
+	case *v1alpha1.PodCheckpointer:
 		ds, err := h.manifestsFactory.DefaultDaemonSet(defaultImage)
 		if err != nil {
 			logrus.Errorf("failed to load daemonset object: %v", err)

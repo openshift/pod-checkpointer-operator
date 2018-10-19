@@ -6,24 +6,24 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type PodCheckpointerOperatorList struct {
+type PodCheckpointerList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []PodCheckpointerOperator `json:"items"`
+	Items           []PodCheckpointer `json:"items"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type PodCheckpointerOperator struct {
+type PodCheckpointer struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              PodCheckpointerOperatorSpec   `json:"spec"`
-	Status            PodCheckpointerOperatorStatus `json:"status,omitempty"`
+	Spec              PodCheckpointerSpec   `json:"spec"`
+	Status            PodCheckpointerStatus `json:"status,omitempty"`
 }
 
-type PodCheckpointerOperatorSpec struct {
+type PodCheckpointerSpec struct {
 	// Fill me
 }
-type PodCheckpointerOperatorStatus struct {
+type PodCheckpointerStatus struct {
 	// Fill me
 }

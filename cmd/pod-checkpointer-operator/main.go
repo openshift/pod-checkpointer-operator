@@ -32,7 +32,7 @@ func main() {
 	}
 
 	resource := "pod.checkpointer.operator.openshift.io/v1alpha1"
-	kind := "PodCheckpointerOperator"
+	kind := "PodCheckpointer"
 	namespace, err := k8sutil.GetWatchNamespace()
 	if err != nil {
 		logrus.Fatalf("failed to get watch namespace: %v", err)
