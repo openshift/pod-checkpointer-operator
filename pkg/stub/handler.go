@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	defaultImage = "quay.io/coreos/pod-checkpointer:018007e77ccd61e8e59b7e15d7fc5e318a5a2682"
+	defaultImage = "quay.io/coreos/pod-checkpointer:40956680d90135cfd8edbe59e5477b96e956fba6"
 )
 
 func NewHandler(m *Metrics, factory *manifests.Factory) *Handler {
