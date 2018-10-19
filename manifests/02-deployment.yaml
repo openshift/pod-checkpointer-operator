@@ -18,7 +18,7 @@ spec:
       serviceAccountName: pod-checkpointer-operator
       containers:
         - name: pod-checkpointer-operator
-          image: quay.io/openshift/pod-checkpointer-operator:latest
+          image: openshift/pod-checkpointer-operator:latest
           ports:
             - containerPort: 60000
               name: metrics
