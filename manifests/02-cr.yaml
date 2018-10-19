@@ -1,5 +1,5 @@
 apiVersion: "pod.checkpointer.operator.openshift.io/v1alpha1"
-kind: "PodCheckpointerOperator"
+kind: "PodCheckpointer"
 metadata:
   name: "pod-checkpointer"
-  namespace: "openshift-pod-checkpointer"
+  namespace: "kube-system"

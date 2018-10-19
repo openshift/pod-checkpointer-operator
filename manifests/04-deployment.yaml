@@ -2,23 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pod-checkpointer-operator
-  namespace: openshift-pod-checkpointer
+  namespace: kube-system
 spec:
   replicas: 1
   selector:
     matchLabels:
       name: pod-checkpointer-operator
-      namespace: openshift-pod-checkpointer
+      namespace: kube-system
   template:
     metadata:
       labels:
         name: pod-checkpointer-operator
-        namespace: openshift-pod-checkpointer
+        namespace: kube-system
     spec:
       serviceAccountName: pod-checkpointer-operator
       containers:
         - name: pod-checkpointer-operator
-          image: openshift/pod-checkpointer-operator:latest
+          image: quay.io/ryan_phillips/pod-checkpointer-operator:v0.0.2
           ports:
             - containerPort: 60000
               name: metrics
