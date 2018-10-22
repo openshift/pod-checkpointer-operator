@@ -33,7 +33,7 @@ docker push quay.io/[some_username]/pod-checkpointer-operator
 To run the operator, first deploy the custom resource definitions:
 
 ```
-for f in manifests/*.yaml; do oc create -f $f ; done
+oc apply -f manifests
 ```
 
 #### Running with Operator SDK
