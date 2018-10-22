@@ -14,7 +14,7 @@ node. An admin-scoped * `KUBECONFIG` for the cluster. The [operator-sdk](https:/
 To build the operator during development, use the standard Go toolchain:
 
 ```
-$ go build ./...
+$ make build
 ```
 
 ### Container image
