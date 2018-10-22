@@ -21,6 +21,10 @@ $ make build
 
 To build the operator docker image:
 
+```
+$ make images
+```
+
 ##### Building using operator-sdk
 
 ```
