@@ -16,6 +16,12 @@ spec:
         namespace: kube-system
     spec:
       serviceAccountName: pod-checkpointer-operator
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
       containers:
         - name: pod-checkpointer-operator
           image: openshift/pod-checkpointer-operator:latest
