@@ -20,8 +20,9 @@ spec:
         - name: pod-checkpointer
           command:
             - /checkpoint
-            - --lock-file=/var/run/lock/pod-checkpointer.lock
             - --kubeconfig=/etc/kubernetes/kubeconfig
+            - --container-runtime-endpoint=unix:///var/run/crio/crio.sock
+            - --lock-file=/var/run/lock/pod-checkpointer.lock
             - --checkpoint-grace-period=5m
           env:
             - name: NODE_NAME
