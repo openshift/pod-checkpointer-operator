@@ -3,7 +3,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: pod-checkpointer-operator
-  namespace: kube-system
+  namespace: openshift-pod-checkpointer
 rules:
   - apiGroups:
       - pod.checkpointer.operator.openshift.io
