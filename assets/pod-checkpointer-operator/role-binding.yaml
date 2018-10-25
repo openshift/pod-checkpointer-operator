@@ -2,11 +2,11 @@ kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: pod-checkpointer-operator
-  namespace: openshift-pod-checkpointer
+  namespace: kube-system
 subjects:
   - kind: ServiceAccount
     name: pod-checkpointer-operator
-    namespace: openshift-pod-checkpointer
+    namespace: kube-system
 roleRef:
   kind: Role
   name: pod-checkpointer-operator
