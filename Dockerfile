@@ -7,4 +7,5 @@ COPY manifests /manifests
 
 COPY --from=builder /go/src/github.com/openshift/pod-checkpointer-operator/pod-checkpointer-operator /usr/local/bin/pod-checkpointer-operator
 
-LABEL io.openshift.release.operator true
+# Removing from release image
+# LABEL io.openshift.release.operator true
